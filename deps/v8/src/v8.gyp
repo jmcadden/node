@@ -2034,6 +2034,11 @@
             'base/platform/platform-posix.cc'
           ]},
         ],
+        ['OS=="ebbrt"', {
+          'sources': [
+            'base/platform/platform-ebbrt.cc',
+          ]},
+        ],
         ['OS=="solaris"', {
             'link_settings': {
               'libraries': [

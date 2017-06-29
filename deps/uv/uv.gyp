@@ -1,7 +1,7 @@
 {
   'target_defaults': {
     'conditions': [
-      ['OS != "win"', {
+      ['OS != "win" or OS != "ebbrt"', {
         'defines': [
           '_LARGEFILE_SOURCE',
           '_FILE_OFFSET_BITS=64',
@@ -136,7 +136,25 @@
               '-lws2_32'
             ],
           },
-        }, { # Not Windows i.e. POSIX
+        }],
+        [ 'OS=="ebbrt"', {
+          'cflags': [
+            '-Wall',
+            '-Wextra',
+            '-Wno-unused-parameter',
+          ],
+          'cflags_c': [
+            '--std=gnu99',
+            '-pedantic',
+           ],
+           'cflags_cc': [
+            '--std=gnu++14',
+           ],
+          'sources': [
+            'src/ebbrt/uv-ebbrt.cc',
+          ],
+-        }],
+-        [ 'OS!="win" and OS!="ebbrt"', { # Not Windows i.e. POSIX
           'sources': [
             'include/uv-unix.h',
             'include/uv-linux.h',
@@ -175,7 +193,7 @@
               [ 'OS=="os390" and uv_library=="shared_library"', {
                 'ldflags': [ '-Wl,DLL' ],
               }],
-              ['OS != "solaris" and OS != "android" and OS != "os390"', {
+              ['OS != "solaris" and OS != "android" and OS != "os390" and OS != "ebbrt"', {
                 'ldflags': [ '-pthread' ],
               }],
             ],

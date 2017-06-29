@@ -207,6 +207,8 @@ int uv_ip6_addr(const char* ip, int port, struct sockaddr_in6* addr) {
     /* NOTE: unknown interface (id=0) is silently ignored */
 #ifdef _WIN32
     addr->sin6_scope_id = atoi(zone_index);
+#elif __ebbrt__
+  EBBRT_UNIMPLEMENTED();
 #else
     addr->sin6_scope_id = if_nametoindex(zone_index);
 #endif
@@ -478,6 +480,9 @@ int uv_fs_event_getpath(uv_fs_event_t* handle, char* buffer, size_t* size) {
 static unsigned int* uv__get_nbufs(uv_fs_t* req) {
 #ifdef _WIN32
   return &req->fs.info.nbufs;
+#elif __ebbrt__
+  EBBRT_UNIMPLEMENTED();
+  return nullptr;
 #else
   return &req->nbufs;
 #endif

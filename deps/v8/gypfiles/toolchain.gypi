@@ -1091,7 +1091,7 @@
         ],
       }],
       ['OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="solaris" \
-         or OS=="netbsd" or OS=="qnx" or OS=="aix"', {
+         or OS=="netbsd" or OS=="qnx" or OS=="aix" or OS="ebbrt"', {
         'conditions': [
           [ 'v8_no_strict_aliasing==1', {
             'cflags': [ '-fno-strict-aliasing' ],
