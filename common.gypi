@@ -279,9 +279,9 @@
         'cflags': [ '-pthread', ],
         'ldflags': [ '-pthread' ],
       }],
-      [ 'OS=="ebbrt"', {
-        'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter',],
-        'cflags_cc': [ ],
+      [ 'OS=="includeos"', {
+        'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter', '-nostdlib'],
+        'cflags_cc': ['-std=c++0x' ],
         'target_conditions': [
           ['_type=="static_library"', {
             'standalone_static_library': 1, 
