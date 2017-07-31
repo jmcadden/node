@@ -66,7 +66,7 @@
 #define HAVE_BOOL_T 1
 
 /* Define to 1 if you have the clock_gettime function and monotonic timer. */
-#define HAVE_CLOCK_GETTIME_MONOTONIC 1
+/*#define HAVE_CLOCK_GETTIME_MONOTONIC 1*/
 
 /* Define to 1 if you have the closesocket function. */
 /* #undef HAVE_CLOSESOCKET */
