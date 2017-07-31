@@ -279,6 +279,25 @@
         'cflags': [ '-pthread', ],
         'ldflags': [ '-pthread' ],
       }],
+      [ 'OS=="ebbrt"', {
+        'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter',],
+        'cflags_cc': [ ],
+        'target_conditions': [
+          ['_type=="static_library"', {
+            'standalone_static_library': 1, 
+          }],
+        ],
+        'conditions': [
+          [ 'target_arch=="ia32"', {
+            'cflags': [ '-m32' ],
+            'ldflags': [ '-m32' ],
+          }],
+          [ 'target_arch=="x64"', {
+            'cflags': [ '-m64' ],
+            'ldflags': [ '-m64' ],
+          }],
+        ],
+      }],
       [ 'OS in "linux freebsd openbsd solaris android aix"', {
         'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter', ],
         'cflags_cc': [ '-fno-rtti', '-fno-exceptions', '-std=gnu++0x' ],

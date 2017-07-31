@@ -2046,6 +2046,12 @@
             ],
           }
         ],
+        ['OS=="includeos"', {
+          'sources': [
+            'base/debug/stack_trace_includeos.cc',
+            'base/platform/platform-includeos.cc',
+          ]},
+        ],
         ['OS=="mac"', {
           'sources': [
             'base/debug/stack_trace_posix.cc',
