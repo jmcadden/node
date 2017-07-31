@@ -42,7 +42,7 @@
          'OBJ_DIR%': '<(PRODUCT_DIR)/obj.target',
          'V8_BASE%': '<(PRODUCT_DIR)/obj.target/deps/v8/src/libv8_base.a',
       }],
-      ['OS == "win"', {
+      ['OS == "win" or OS == "includeos"', {
         'os_posix': 0,
         'v8_postmortem_support%': 'false',
         'OBJ_DIR': '<(PRODUCT_DIR)/obj',

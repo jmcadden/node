@@ -159,6 +159,10 @@
           'include_dirs': [ 'config/android' ],
           'sources': [ 'config/android/ares_config.h' ],
         }],
+        [ 'OS=="includeos"', {
+          'include_dirs': [ 'config/includeos' ],
+          'sources': [ 'config/includeos/ares_config.h' ],
+        }],
         [ 'OS=="solaris"', {
           'include_dirs': [ 'config/sunos' ],
           'sources': [ 'config/sunos/ares_config.h' ],

@@ -1108,7 +1108,7 @@
         'cflags': [ '-I/usr/pkg/include' ],
       }],
       ['OS=="includeos"', {
-        'cflags': [ '-std=gnu++14' ],
+        'cflags': [ '-std=c++0x' ],
       }],
       ['OS=="aix"', {
         'defines': [
