@@ -12,43 +12,58 @@
 #include <mutex>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 #include "src/base/macros.h"
 #include "src/base/platform/platform.h"
 #include "platform.h"
+#include "time.h"
 
+//TODO(jmcadden): fix this
 #define EBBRT_UNIMPLEMENTED() while(true);
 
+void v8::base::OS::Initialize(int64_t random_seed,
+                         bool hard_abort,
+                         const char* const gc_fake_mmap){
+  EBBRT_UNIMPLEMENTED();
+  return;
+}
 
-//          Copyright Boston University SESA Group 2013 - 2014.
-// Distributed under the Boost Software License, Version 1.0.
-//    (See accompanying file LICENSE_1_0.txt or copy at
-//          http://www.boost.org/LICENSE_1_0.txt)
 
-#include "platform.h"
+void* v8::base::OS::AllocateGuarded(const size_t requested){
+  EBBRT_UNIMPLEMENTED();
+  return nullptr;
+}
 
-#include <malloc.h>
+void v8::base::OS::Unprotect(void* address, const size_t size){
+  EBBRT_UNIMPLEMENTED();
+  return;
+}
 
-#include <cinttypes>
-#include <cstdarg>
-#include <cstdio>
-#include <mutex>
-#include <unordered_map>
-#include <utility>
 
-double v8::base::modulo(double x, double y) {
+v8::base::TimezoneCache* v8::base::OS::CreateTimezoneCache(){
+  EBBRT_UNIMPLEMENTED();
+};
+
+void v8::base::OS::ClearTimezoneCache(v8::base::TimezoneCache* cache){
+  EBBRT_UNIMPLEMENTED();
+}
+
+int v8::base::OS::GetCurrentThreadId(){
   EBBRT_UNIMPLEMENTED();
   return 0;
 }
 
-double v8::base::fast_sqrt(double input) {
+void v8::base::OS::DisposeTimezoneCache(v8::base::TimezoneCache* cache){
   EBBRT_UNIMPLEMENTED();
-  return 0;
 }
-
-void v8::base::OS::PostSetUp() {}
 
 int v8::base::OS::GetUserTime(uint32_t* secs, uint32_t* usecs) {
+  EBBRT_UNIMPLEMENTED();
+  return 0;
+}
+
+double v8::base::OS::LocalTimeOffset(v8::base::TimezoneCache* cache){
   EBBRT_UNIMPLEMENTED();
   return 0;
 }
@@ -58,17 +73,12 @@ double v8::base::OS::TimeCurrentMillis() {
   return 0;
 }
 
-const char* v8::base::OS::LocalTimezone(double time) {
+const char* v8::base::OS::LocalTimezone(double time, TimezoneCache* cache) {
   EBBRT_UNIMPLEMENTED();
   return nullptr;
 }
 
-double v8::base::OS::LocalTimeOffset() {
-  EBBRT_UNIMPLEMENTED();
-  return 0;
-}
-
-double v8::base::OS::DaylightSavingsOffset(double time) {
+double v8::base::OS::DaylightSavingsOffset(double time, TimezoneCache* cache ) {
   EBBRT_UNIMPLEMENTED();
   return 0;
 }
@@ -150,7 +160,7 @@ size_t v8::base::OS::AllocateAlignment() {
   return 0;
 }
 
-void v8::base::OS::Sleep(const int milliseconds) { EBBRT_UNIMPLEMENTED(); }
+void v8::base::OS::Sleep(TimeDelta interval) { EBBRT_UNIMPLEMENTED(); }
 
 void v8::base::OS::Abort() { EBBRT_UNIMPLEMENTED(); }
 
@@ -162,29 +172,24 @@ v8::base::OS::MemoryMappedFile* v8::base::OS::MemoryMappedFile::open(
   return nullptr;
 }
 
-v8::base::OS::MemoryMappedFile* v8::base::OS::MemoryMappedFile::create(
-    const char* name, int size, void* initial) {
+v8::base::OS::MemoryMappedFile* v8::base::OS::MemoryMappedFile::create(const char* c, size_t t, void* p){
   EBBRT_UNIMPLEMENTED();
   return nullptr;
 }
 
-int v8::base::OS::SNPrintF(Vector<char> str, const char* format, ...) {
+int v8::base::OS::SNPrintF(char* str, int length,
+                                          const char* format, ...){
   va_list args;
   va_start(args, format);
-  auto result = VSNPrintF(str, format, args);
+  auto result = VSNPrintF(str, length, format, args);
   va_end(args);
   return result;
 }
 
-int v8::base::OS::VSNPrintF(Vector<char> str, const char* format,
-                                va_list args) {
-  int n = vsnprintf(str.start(), str.length(), format, args);
-  if (n < 0 || n >= str.length()) {
-    if (str.length() > 0) str[str.length() - 1] = '\0';
-    return -1;
-  } else {
-    return n;
-  }
+int v8::base::OS::VSNPrintF(char* str, int length,
+                                           const char* format, va_list args) {
+ EBBRT_UNIMPLEMENTED();
+ return 0;
 }
 
 char* v8::base::OS::StrChr(char* str, int c) {
@@ -192,20 +197,26 @@ char* v8::base::OS::StrChr(char* str, int c) {
   return nullptr;
 }
 
-void v8::base::OS::StrNCpy(Vector<char> dest, const char* src, size_t n) {
+void v8::base::OS::StrNCpy(char* dest, int length, const char* src, size_t n) {
   EBBRT_UNIMPLEMENTED();
+}
+
+std::vector<v8::base::OS::SharedLibraryAddress> v8::base::OS::GetSharedLibraryAddresses(){
+  std::vector<v8::base::OS::SharedLibraryAddress> ret;
+  return ret;
 }
 
 void v8::base::OS::SignalCodeMovingGC() { EBBRT_UNIMPLEMENTED(); }
 
-uint64_t v8::base::OS::CpuFeaturesImpliedByPlatform() { return 0; }
-
-intptr_t v8::base::OS::MaxVirtualMemory() { 
-	EBBRT_UNIMPLEMENTED(); 
-	return 0xFFFFFFFF; 
+char v8::base::OS::DirectorySeparator() {
+  EBBRT_UNIMPLEMENTED();
+  return '/';
 }
 
-double v8::base::OS::nan_value() { return NAN; }
+bool v8::base::OS::isDirectorySeparator(const char ch) {
+  EBBRT_UNIMPLEMENTED();
+  return false;
+}
 
 bool v8::base::OS::ArmUsingHardFloat() {
   EBBRT_UNIMPLEMENTED();
@@ -219,61 +230,31 @@ int v8::base::OS::GetCurrentProcessId() {
   return 0;
 }
 
-namespace {
-class V8PFHandler : public ebbrt::VMemAllocator::PageFaultHandler {
-  void HandleFault(ebbrt::idt::ExceptionFrame* ef,
-                   uintptr_t faulted_address) override {
-    auto page = ebbrt::Pfn::Down(faulted_address);
-    auto it = mappings_.find(page);
-    if (it == mappings_.end()) {
-      auto backing_page = ebbrt::page_allocator->Alloc();
-      ebbrt::kbugon(backing_page == ebbrt::Pfn::None(),
-                    "Failed to allocate page for stack\n");
-      ebbrt::vmem::MapMemory(page, backing_page);
-      mappings_[page] = backing_page;
-    } else {
-      ebbrt::vmem::MapMemory(page, it->second);
-    }
-  }
-
- private:
-  std::unordered_map<ebbrt::Pfn, ebbrt::Pfn> mappings_;
-};
-}
-
 v8::base::VirtualMemory::VirtualMemory() : address_{nullptr}, size_(0) {}
 
 v8::base::VirtualMemory::VirtualMemory(size_t size) {
-  auto sz = ebbrt::Pfn::Up(size).val();
-  auto pfn = ebbrt::vmem_allocator->Alloc(
-      sz, std::unique_ptr<V8PFHandler>(new V8PFHandler()));
-  ebbrt::kbugon(pfn == ebbrt::Pfn::None(), "Page allocation failed\n");
-  size_ = size;
-  address_ = reinterpret_cast<void*>(pfn.ToAddr());
-  ebbrt::kprintf("Allocated virtual region %#018" PRIx64 " - %#018" PRIx64 "\n",
-                 pfn.ToAddr(), pfn.ToAddr() + size_ - 1);
+  EBBRT_UNIMPLEMENTED();
 }
 
 v8::base::VirtualMemory::VirtualMemory(size_t size, size_t alignment) {
-  auto sz = ebbrt::Pfn::Up(size).val();
-  auto align = ebbrt::Pfn::Up(alignment).val();
-
-  auto pfn = ebbrt::vmem_allocator->Alloc(
-      sz, align, std::unique_ptr<V8PFHandler>(new V8PFHandler()));
-  ebbrt::kbugon(pfn == ebbrt::Pfn::None(), "Page allocation failed\n");
-
-
-  size_ = size;
-  address_ = reinterpret_cast<void*>(pfn.ToAddr());
-  ebbrt::kbugon(pfn.ToAddr() % alignment != 0, "Alignment failure\n");
-  ebbrt::kprintf("Allocated virtual region %#018" PRIx64 " - %#018" PRIx64 "\n",
-                 pfn.ToAddr(), pfn.ToAddr() + size_ - 1);
+  EBBRT_UNIMPLEMENTED();
 }
 
 v8::base::VirtualMemory::~VirtualMemory() {
   if (address_ != nullptr) {
-    ebbrt::kprintf("TODO(dschatz): Free Virtual Region\n");
+    EBBRT_UNIMPLEMENTED();
   }
+}
+
+bool v8::base::VirtualMemory::ReleasePartialRegion(void* base, size_t size, void* free_start,
+                                   size_t free_size){
+  EBBRT_UNIMPLEMENTED();
+  return false;
+}
+
+bool v8::base::VirtualMemory::HasLazyCommits(){ 
+  EBBRT_UNIMPLEMENTED();
+  return false;
 }
 
 bool v8::base::VirtualMemory::IsReserved() { return address_ != nullptr; }
@@ -291,7 +272,7 @@ bool v8::base::VirtualMemory::Uncommit(void* address, size_t size) {
 }
 
 bool v8::base::VirtualMemory::Guard(void* address) {
-  // TODO(dschatz): Actually implement this
+  EBBRT_UNIMPLEMENTED();
   return true;
 }
 
@@ -322,7 +303,7 @@ v8::base::Thread::Thread(const Options& options) {
 
 v8::base::Thread::~Thread() { EBBRT_UNIMPLEMENTED(); }
 
-void v8::base::Thread::Start() { ebbrt::kprintf("Unstarted Thread!!!\n"); }
+void v8::base::Thread::Start() {  EBBRT_UNIMPLEMENTED(); }
 
 void v8::base::Thread::set_name(const char* name) {
   strncpy(name_, name, sizeof(name_));
@@ -356,7 +337,4 @@ void* v8::base::Thread::GetThreadLocal(LocalStorageKey key) {
 void v8::base::Thread::SetThreadLocal(LocalStorageKey key, void* value) {
   EBBRT_UNIMPLEMENTED();
 }
-
-void v8::base::Thread::YieldCPU() { EBBRT_UNIMPLEMENTED(); }
-
 

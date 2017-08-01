@@ -70,6 +70,7 @@
 //  V8_OS_SOLARIS       - Sun Solaris and OpenSolaris
 //  V8_OS_AIX           - AIX
 //  V8_OS_WIN           - Microsoft Windows
+//  V8_OS_INCLUDEOS     - IncludeOS 
 
 #if defined(__ANDROID__)
 # define V8_OS_ANDROID 1
@@ -112,6 +113,9 @@
 # define V8_OS_QNX 1
 #elif defined(_WIN32)
 # define V8_OS_WIN 1
+#elif defined(__INCLUDEOS__)
+# define V8_OS_INCLUDEOS 1
+# error DIE
 #endif
 
 

@@ -280,7 +280,7 @@
         'ldflags': [ '-pthread' ],
       }],
       [ 'OS=="includeos"', {
-        'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter', '-nostdlib'],
+        'cflags': [ '-D__INCLUDEOS__', '-Wall', '-Wextra', '-Wno-unused-parameter', '-nostdlib'],
         'cflags_cc': ['-std=c++0x' ],
         'target_conditions': [
           ['_type=="static_library"', {
