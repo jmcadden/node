@@ -5,6 +5,10 @@
 #ifndef V8CONFIG_H_
 #define V8CONFIG_H_
 
+#if defined(__INCLUDEOS__)
+# undef __linux__ 
+#endif
+
 // clang-format off
 
 // Platform headers for feature detection below.
@@ -15,7 +19,6 @@
 #elif defined(__linux__)
 # include <features.h>
 #endif
-
 
 // This macro allows to test for the version of the GNU C library (or
 // a compatible C library that masquerades as glibc). It evaluates to
@@ -115,7 +118,6 @@
 # define V8_OS_WIN 1
 #elif defined(__INCLUDEOS__)
 # define V8_OS_INCLUDEOS 1
-# error DIE
 #endif
 
 

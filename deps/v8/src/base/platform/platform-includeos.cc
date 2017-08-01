@@ -3,24 +3,65 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
-#include <malloc.h>
-
-#include <cinttypes>
-#include <cstdarg>
-#include <cstdio>
-#include <mutex>
-#include <unordered_map>
-#include <utility>
-#include <vector>
-
 #include "src/base/macros.h"
+#include "src/base/platform/condition-variable.h"
+#include "src/base/platform/mutex.h"
 #include "src/base/platform/platform.h"
-#include "platform.h"
-#include "time.h"
+#include "src/base/platform/semaphore.h"
+#include "src/base/platform/time.h"
+#include "src/libsampler/sampler.h"
+
 
 //TODO(jmcadden): fix this
 #define EBBRT_UNIMPLEMENTED() while(true);
+
+void v8::sampler::Sampler::DoSample(){
+  EBBRT_UNIMPLEMENTED();
+}
+
+bool v8::base::Semaphore::WaitFor(v8::base::TimeDelta const&){
+  EBBRT_UNIMPLEMENTED();
+  return true;
+}
+
+v8::base::Time v8::base::Time::NowFromSystemTime(){
+  EBBRT_UNIMPLEMENTED();
+}
+
+v8::base::Semaphore::Semaphore(int){
+  EBBRT_UNIMPLEMENTED();
+}
+
+v8::base::Semaphore::~Semaphore(){}
+
+void v8::base::Semaphore::Wait(){
+  EBBRT_UNIMPLEMENTED();
+}
+
+void v8::base::Semaphore::Signal(){
+  EBBRT_UNIMPLEMENTED();
+}
+
+void v8::base::ConditionVariable::Wait(v8::base::Mutex*){
+  EBBRT_UNIMPLEMENTED();
+}
+
+void v8::base::ConditionVariable::NotifyOne(){
+  EBBRT_UNIMPLEMENTED();
+}
+
+bool v8::base::ConditionVariable::WaitFor(v8::base::Mutex*, v8::base::TimeDelta const&){
+  EBBRT_UNIMPLEMENTED();
+  return false;
+}
+
+v8::base::ConditionVariable::ConditionVariable(){
+  EBBRT_UNIMPLEMENTED();
+}
+
+v8::base::ConditionVariable::~ConditionVariable(){
+  EBBRT_UNIMPLEMENTED();
+}
 
 void v8::base::OS::Initialize(int64_t random_seed,
                          bool hard_abort,
@@ -28,7 +69,6 @@ void v8::base::OS::Initialize(int64_t random_seed,
   EBBRT_UNIMPLEMENTED();
   return;
 }
-
 
 void* v8::base::OS::AllocateGuarded(const size_t requested){
   EBBRT_UNIMPLEMENTED();
@@ -311,12 +351,6 @@ void v8::base::Thread::set_name(const char* name) {
 }
 
 void v8::base::Thread::Join() { EBBRT_UNIMPLEMENTED(); }
-
-namespace {
-std::mutex key_map_mut;
-std::unordered_map<int, __gthread_key_t> key_map
-    __attribute__((init_priority(101)));
-}
 
 v8::base::Thread::LocalStorageKey
 v8::base::Thread::CreateThreadLocalKey() {

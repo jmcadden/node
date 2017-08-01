@@ -56,8 +56,10 @@ class V8_BASE_EXPORT Mutex final {
   // The implementation-defined native handle type.
 #if V8_OS_POSIX
   typedef pthread_mutex_t NativeHandle;
-#elif V8_OS_WIN
+#elif V8_OS_WIN 
   typedef CRITICAL_SECTION NativeHandle;
+#elif V8_OS_INCLUDEOS
+  typedef void* NativeHandle; 
 #endif
 
   NativeHandle& native_handle() {

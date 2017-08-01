@@ -103,8 +103,34 @@ static V8_INLINE void UnlockNativeHandle(PCRITICAL_SECTION cs) {
 }
 
 
-static V8_INLINE bool TryLockNativeHandle(PCRITICAL_SECTION cs) {
+static V8_INLINE bool TryLockNativeHandle(v8::base::Mutex::NativeHandle* cs) {
   return TryEnterCriticalSection(cs);
+}
+
+#elif V8_OS_INCLUDEOS
+
+static V8_INLINE void InitializeNativeHandle(v8::base::Mutex::NativeHandle* cs) {
+}
+
+
+static V8_INLINE void InitializeRecursiveNativeHandle(v8::base::Mutex::NativeHandle* cs) {
+}
+
+
+static V8_INLINE void DestroyNativeHandle(v8::base::Mutex::NativeHandle* cs) {
+}
+
+
+static V8_INLINE void LockNativeHandle(v8::base::Mutex::NativeHandle* cs) {
+}
+
+
+static V8_INLINE void UnlockNativeHandle(v8::base::Mutex::NativeHandle* cs) {
+}
+
+
+static V8_INLINE bool TryLockNativeHandle(v8::base::Mutex::NativeHandle* cs) {
+  return false;
 }
 
 #endif  // V8_OS_POSIX
