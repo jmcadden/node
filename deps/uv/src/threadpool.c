@@ -21,6 +21,11 @@
 
 #include "uv-common.h"
 
+// Turn on Windows (non-POSIX) build for IncludeOS
+#if defined(__INCLUDEOS__)
+#define _WIN32
+#endif
+
 #if !defined(_WIN32)
 # include "unix/internal.h"
 #endif
@@ -101,7 +106,7 @@ static void post(QUEUE* q) {
 }
 
 
-#ifndef _WIN32
+#ifndef _WIN32  
 UV_DESTRUCTOR(static void cleanup(void)) {
   unsigned int i;
 
