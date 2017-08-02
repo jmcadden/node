@@ -182,6 +182,9 @@ int SigintWatchdogHelper::Start() {
   }
 
 #ifdef __POSIX__
+#ifdef __INCLUDEOS__
+  //UNIMPLEMENTED
+#else
   CHECK_EQ(has_running_thread_, false);
   has_pending_signal_ = false;
   stopping_ = false;
@@ -197,6 +200,7 @@ int SigintWatchdogHelper::Start() {
   has_running_thread_ = true;
 
   RegisterSignalHandler(SIGINT, HandleSignal);
+#endif //INCLUDEOS
 #else
   if (watchdog_disabled_) {
     watchdog_disabled_ = false;
@@ -232,6 +236,9 @@ bool SigintWatchdogHelper::Stop() {
   }
 
 #ifdef __POSIX__
+#ifdef __INCLUDEOS__
+  //UNIMPLEMENTED
+#else
   if (!has_running_thread_) {
     has_pending_signal_ = false;
     return had_pending_signal;
@@ -245,6 +252,7 @@ bool SigintWatchdogHelper::Stop() {
   has_running_thread_ = false;
 
   RegisterSignalHandler(SIGINT, SignalExit, true);
+#endif //INCLUDEOS
 #else
   watchdog_disabled_ = true;
 #endif

@@ -94,7 +94,9 @@ class SigintWatchdogHelper {
   bool has_pending_signal_;
 
 #ifdef __POSIX__
+#ifndef __INCLUDEOS__
   pthread_t thread_;
+#endif //INCLUDEOS
   uv_sem_t sem_;
   bool has_running_thread_;
   bool stopping_;

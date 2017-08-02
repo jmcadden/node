@@ -23,6 +23,7 @@ namespace node {
 
 void DumpBacktrace(FILE* fp) {
 #if HAVE_EXECINFO_H
+#ifndef __INCLUDEOS__
   void* frames[256];
   const int size = backtrace(frames, arraysize(frames));
   if (size <= 0) {
@@ -46,6 +47,7 @@ void DumpBacktrace(FILE* fp) {
     }
     fprintf(fp, "\n");
   }
+#endif //__INCLUDEOS__
 #endif  // HAVE_EXECINFO_H
 }
 
