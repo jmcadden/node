@@ -109,7 +109,7 @@ typedef int mode_t;
 #include <unistd.h>  // setuid, getuid
 #endif
 
-#if defined(__POSIX__) && !defined(__ANDROID__)
+#if defined(__POSIX__) && !defined(__ANDROID__) && !defined(__INCLUDEOS__)
 #include <pwd.h>  // getpwnam()
 #include <grp.h>  // getgrnam()
 #endif
@@ -981,7 +981,7 @@ Local<Value> UVException(Isolate* isolate,
 
 // Look up environment variable unless running as setuid root.
 bool SafeGetenv(const char* key, std::string* text) {
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__INCLUDEOS__)
   if (linux_at_secure || getuid() != geteuid() || getgid() != getegid())
     goto fail;
 #endif
@@ -1988,7 +1988,7 @@ static void Umask(const FunctionCallbackInfo<Value>& args) {
 }
 
 
-#if defined(__POSIX__) && !defined(__ANDROID__)
+#if defined(__POSIX__) && !defined(__ANDROID__) && !defined(__INCLUDEOS__)
 
 static const uid_t uid_not_found = static_cast<uid_t>(-1);
 static const gid_t gid_not_found = static_cast<gid_t>(-1);
@@ -3467,7 +3467,7 @@ void SetupProcessObject(Environment* env,
 
   env->SetMethod(process, "umask", Umask);
 
-#if defined(__POSIX__) && !defined(__ANDROID__)
+#if defined(__POSIX__) && !defined(__ANDROID__) && !defined(__INCLUDEOS__)
   env->SetMethod(process, "getuid", GetUid);
   env->SetMethod(process, "geteuid", GetEUid);
   env->SetMethod(process, "setuid", SetUid);
@@ -4036,7 +4036,7 @@ static void StartInspector(Environment* env, const char* path,
 }
 
 
-#ifdef __POSIX__
+#if defined(__POSIX__) && !defined(__INCLUDEOS__)
 void RegisterSignalHandler(int signal,
                            void (*handler)(int signal),
                            bool reset_handler) {
@@ -4186,7 +4186,7 @@ static void DebugEnd(const FunctionCallbackInfo<Value>& args) {
 
 
 inline void PlatformInit() {
-#ifdef __POSIX__
+#if defined(__POSIX__) && !defined(__INCLUDEOS__)
 #if HAVE_INSPECTOR
   sigset_t sigmask;
   sigemptyset(&sigmask);

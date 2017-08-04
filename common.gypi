@@ -280,8 +280,12 @@
         'ldflags': [ '-pthread' ],
       }],
       [ 'OS=="includeos"', {
-        'cflags': [ '-D__INCLUDEOS__', '-Wall', '-Wextra', '-Wno-unused-parameter', '-nostdlib'],
-        'cflags_cc': ['-std=c++0x' ],
+        'cflags': [ '-D__INCLUDEOS__', '-Wall', '-Wextra',
+        '-Wno-unused-parameter', '-nostdlib', '-DARCH_x86_64',
+        '-DINCLUDEOS_SINGLE_THREADED', '-m64', '-mno-red-zone',
+        '-fstack-protector-strong', '-fno-omit-frame-pointer' ],
+        'cflags_cc': ['-stdlib=libc++', '-std=c++14'],
+        #, '-D_LIBCPP_HAS_NO_THREADS=1'],
         'target_conditions': [
           ['_type=="static_library"', {
             'standalone_static_library': 1, 

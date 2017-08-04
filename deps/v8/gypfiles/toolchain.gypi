@@ -1108,7 +1108,9 @@
         'cflags': [ '-I/usr/pkg/include' ],
       }],
       ['OS=="includeos"', {
-        'cflags': [ '-std=c++0x' ],
+        'defines': ['_LIBCPP_HAS_NO_THREADS=1'],
+        'cflags': [ '-std=c++14', '-stdlib=libc++'],
+        'ldflags': [ '-std=c++14', '-stdlib=libc++'],
       }],
       ['OS=="aix"', {
         'defines': [
