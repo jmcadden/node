@@ -58,6 +58,8 @@ extern "C" {
 
 #if defined(_WIN32)
 # include "uv-win.h"
+#elif defined(__INCLUDEOS__)
+# include "uv-includeos.h"
 #else
 # include "uv-unix.h"
 #endif

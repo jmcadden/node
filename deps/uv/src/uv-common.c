@@ -32,6 +32,8 @@
 
 #if defined(_WIN32)
 # include <malloc.h> /* malloc */
+#elif defined(__INCLUDEOS__)
+  // Do Nothing
 #else
 # include <net/if.h> /* if_nametoindex */
 #endif
@@ -207,6 +209,8 @@ int uv_ip6_addr(const char* ip, int port, struct sockaddr_in6* addr) {
     /* NOTE: unknown interface (id=0) is silently ignored */
 #ifdef _WIN32
     addr->sin6_scope_id = atoi(zone_index);
+#elif defined(__INCLUDEOS__)
+  // Do Nothing
 #else
     addr->sin6_scope_id = if_nametoindex(zone_index);
 #endif

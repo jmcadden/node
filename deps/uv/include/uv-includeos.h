@@ -1,6 +1,26 @@
 #ifndef UV_INCLUDEOS_H
 #define UV_INCLUDEOS_H
 
+#include "uv-threadpool.h"
+
+#define SO_RCVBUF 0
+#define SO_SNDBUF 0
+
+#define UV_PLATFORM_SEM_T int
+
+#define UV_ONCE_INIT { 0, NULL }
+
+#define UV_PLATFORM_LOOP_FIELDS                                               \
+  void* ep;                                                                   \
+
+typedef struct {} pthread_once_t;
+
+typedef struct { const char* d_name;} uv__dirent_t;
+
+typedef struct {} orig_termios;
+
+struct termios {};
+
 struct addrinfo {
   void *p;
 };
@@ -15,7 +35,7 @@ struct sockaddr {
   char sa_data[14];
 };
 
-typedef unsigned long in_addr_t;
+//typedef unsigned long in_addr_t;
 
 struct in_addr {
   in_addr_t s_addr;
@@ -88,6 +108,8 @@ typedef struct {
 typedef int uv_os_sock_t;
 
 typedef int uv_file;
+typedef int uv_os_sock_t;
+typedef int uv_os_fd_t;
 
 typedef uint32_t uv_uid_t;
 
@@ -125,6 +147,10 @@ typedef struct {
   void *p;
 } uv_thread_t;
 
+typedef struct {
+  void *p;
+} uv_key_t;
+
 #define UV_REQ_TYPE_PRIVATE /* empty */
 
 #define UV_REQ_PRIVATE_FIELDS /* empty */
@@ -157,6 +183,9 @@ typedef struct {
 
 #define UV_PREPARE_PRIVATE_FIELDS /* empty */
 
+#define UV_GETNAMEINFO_PRIVATE_FIELDS                                         \
+  struct uv__work work_req;                                                   \
+
 #define UV_CHECK_PRIVATE_FIELDS /* empty */
 
 #define UV_IDLE_PRIVATE_FIELDS /* empty */
@@ -165,19 +194,37 @@ typedef struct {
 
 #define UV_TIMER_PRIVATE_FIELDS /* empty */
 
-#define UV_GETADDRINFO_PRIVATE_FIELDS /* empty */
+#define UV_GETADDRINFO_PRIVATE_FIELDS                                         \
+  struct uv__work work_req;                                                   \
 
 #define UV_PROCESS_PRIVATE_FIELDS /* empty */
 
-#define UV_WORK_PRIVATE_FIELDS /* empty */
+#define UV_WORK_PRIVATE_FIELDS                                                \
+  struct uv__work work_req; \
 
-#define UV_FS_PRIVATE_FIELDS /* empty */
+#define UV_FS_PRIVATE_FIELDS                                                  \
+  const char *new_path;                                                       \
+  uv_file file;                                                               \
+  int flags;                                                                  \
+  mode_t mode;                                                                \
+  unsigned int nbufs;                                                         \
+  uv_buf_t* bufs;                                                             \
+  off_t off;                                                                  \
+  uv_uid_t uid;                                                               \
+  uv_gid_t gid;                                                               \
+  double atime;                                                               \
+  double mtime;                                                               \
+  struct uv__work work_req;                                                   \
+  uv_buf_t bufsml[4];                                                         \
 
 #define UV_FS_EVENT_PRIVATE_FIELDS /* empty */
 
 #define UV_SIGNAL_PRIVATE_FIELDS /* empty */
 
-#define UV_LOOP_PRIVATE_FIELDS uint64_t time;
+#define UV_LOOP_PRIVATE_FIELDS uint64_t time; \
+  void* wq[2];                                                                \
+  uv_mutex_t wq_mutex;                                                        \
+  uv_async_t wq_async;                                                        \
 
 #define UV_DYNAMIC /* empty */
 
