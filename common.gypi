@@ -123,7 +123,7 @@
         'variables': {
           'v8_enable_handle_zapping': 0,
         },
-        'cflags': [ '-O3' ],
+        'cflags': [ '-O0' ],
         'conditions': [
           ['target_arch=="x64"', {
             'msvs_configuration_platform': 'x64',
@@ -281,11 +281,17 @@
       }],
       [ 'OS=="includeos"', {
         'cflags': [ '-D__INCLUDEOS__', '-Wall', '-Wextra',
-        '-Wno-unused-parameter', '-nostdlib', '-DARCH_x86_64',
-        '-DINCLUDEOS_SINGLE_THREADED', '-m64', '-mno-red-zone',
-        '-fstack-protector-strong', '-fno-omit-frame-pointer' ],
-        'cflags_cc': ['-stdlib=libc++', '-std=c++14'],
-        #, '-D_LIBCPP_HAS_NO_THREADS=1'],
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/include',
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/api',
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/api/posix',
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/include',
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/x86_64/include',
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/x86_64/include/libcxx',
+        '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/x86_64/include/newlib',
+        '-Wno-unused-parameter', '-nostdlib', '-nostdlibinc', '-D_GNU_SOURCE',
+        '-mno-red-zone', '-fstack-protector-strong', '-fno-omit-frame-pointer' ],
+        'cflags_cc': ['-std=c++14'],
+        #'-D_LIBCPP_HAS_NO_THREADS=1'
         'target_conditions': [
           ['_type=="static_library"', {
             'standalone_static_library': 1, 

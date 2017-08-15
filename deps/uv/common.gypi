@@ -160,7 +160,7 @@
             'cflags': [ '-pthreads' ],
             'ldflags': [ '-pthreads' ],
           }],
-          [ 'OS not in "solaris android os390"', {
+          [ 'OS not in "solaris android os390 includeos"', {
             'cflags': [ '-pthread' ],
             'ldflags': [ '-pthread' ],
           }],

@@ -1109,8 +1109,7 @@
       }],
       ['OS=="includeos"', {
         'defines': ['_LIBCPP_HAS_NO_THREADS=1'],
-        'cflags': [ '-std=c++14', '-stdlib=libc++'],
-        'ldflags': [ '-std=c++14', '-stdlib=libc++'],
+        'cflags': [ '-std=c++14'],
       }],
       ['OS=="aix"', {
         'defines': [
@@ -1221,7 +1220,7 @@
               # Don't use -O3 with sanitizers.
               ['asan==0 and msan==0 and lsan==0 \
                 and tsan==0 and ubsan==0 and ubsan_vptr==0', {
-                'cflags': ['-O3'],
+                'cflags': ['-O0'],
                 'cflags!': ['-O2'],
                 }, {
                 'cflags': ['-O2'],
