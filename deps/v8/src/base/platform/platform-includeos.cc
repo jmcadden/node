@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include "src/base/macros.h"
+#include "src/base/atomicops.h"
 #include "src/base/platform/condition-variable.h"
 #include "src/base/platform/mutex.h"
 #include "src/base/platform/platform.h"
 #include "src/base/platform/semaphore.h"
 #include "src/base/platform/time.h"
 #include "src/libsampler/sampler.h"
-
 
 //TODO(jmcadden): fix this
 #define EBBRT_UNIMPLEMENTED() while(true);
@@ -371,4 +371,120 @@ void* v8::base::Thread::GetThreadLocal(LocalStorageKey key) {
 void v8::base::Thread::SetThreadLocal(LocalStorageKey key, void* value) {
   EBBRT_UNIMPLEMENTED();
 }
+
+
+namespace v8 {
+namespace base {
+
+// This implementation is transitional and maintains the original API for
+// atomicops.h.
+
+void MemoryBarrier() {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 NoBarrier_CompareAndSwap(volatile Atomic32* ptr,
+                                         Atomic32 old_value,
+                                         Atomic32 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 NoBarrier_AtomicExchange(volatile Atomic32* ptr,
+                                         Atomic32 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 NoBarrier_AtomicIncrement(volatile Atomic32* ptr,
+                                          Atomic32 increment) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 Barrier_AtomicIncrement(volatile Atomic32* ptr,
+                                        Atomic32 increment) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 Acquire_CompareAndSwap(volatile Atomic32* ptr,
+                                       Atomic32 old_value, Atomic32 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 Release_CompareAndSwap(volatile Atomic32* ptr,
+                                       Atomic32 old_value, Atomic32 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+void NoBarrier_Store(volatile Atomic8* ptr, Atomic8 value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+void NoBarrier_Store(volatile Atomic32* ptr, Atomic32 value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+void Release_Store(volatile Atomic32* ptr, Atomic32 value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic8 NoBarrier_Load(volatile const Atomic8* ptr) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 NoBarrier_Load(volatile const Atomic32* ptr) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic32 Acquire_Load(volatile const Atomic32* ptr) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 NoBarrier_CompareAndSwap(volatile Atomic64* ptr,
+                                         Atomic64 old_value,
+                                         Atomic64 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 NoBarrier_AtomicExchange(volatile Atomic64* ptr,
+                                         Atomic64 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 NoBarrier_AtomicIncrement(volatile Atomic64* ptr,
+                                          Atomic64 increment) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 Barrier_AtomicIncrement(volatile Atomic64* ptr,
+                                        Atomic64 increment) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 Acquire_CompareAndSwap(volatile Atomic64* ptr,
+                                       Atomic64 old_value, Atomic64 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 Release_CompareAndSwap(volatile Atomic64* ptr,
+                                       Atomic64 old_value, Atomic64 new_value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+void NoBarrier_Store(volatile Atomic64* ptr, Atomic64 value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+void Release_Store(volatile Atomic64* ptr, Atomic64 value) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 NoBarrier_Load(volatile const Atomic64* ptr) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+Atomic64 Acquire_Load(volatile const Atomic64* ptr) {
+  EBBRT_UNIMPLEMENTED();
+}
+
+}  // namespace base
+}  // namespace v8
 
