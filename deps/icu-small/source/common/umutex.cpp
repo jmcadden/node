@@ -294,7 +294,7 @@ U_NAMESPACE_END
 
 #else  // Platform #define chain.
 
-#error Unknown Platform
+//#error Unknown Platform
 
 #endif  // Platform #define chain.
 

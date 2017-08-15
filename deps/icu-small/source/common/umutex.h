@@ -393,7 +393,17 @@ struct UConditionVar {
  *      This is an error condition. ICU requires mutexes.
  */
 
-#error Unknown Platform.
+//#error Unknown Platform.
+struct UMutex {
+    void *p;
+};
+typedef struct UMutex UMutex;
+#define U_MUTEX_INITIALIZER  {}
+
+struct UConditionVar {
+    void* fCondition;
+};
+#define U_CONDITION_INITIALIZER {}
 
 #endif
 

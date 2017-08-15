@@ -182,7 +182,7 @@ typedef size_t uintptr_t;
 #elif U_PLATFORM_USES_ONLY_WIN32_API
 #   define U_HAVE_DIRENT_H 0
 #else
-#   define U_HAVE_DIRENT_H 1
+#   define U_HAVE_DIRENT_H 0
 #endif
 
 /** @} */
