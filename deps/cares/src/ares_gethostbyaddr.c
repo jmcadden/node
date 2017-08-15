@@ -235,6 +235,8 @@ static int file_lookup(struct ares_addr *addr, struct hostent **host)
     }
   while ((status = ares__get_hostent(fp, addr->family, host)) == ARES_SUCCESS)
     {
+      break;
+#if 0
       if (addr->family != (*host)->h_addrtype)
         {
           ares_free_hostent(*host);
@@ -253,6 +255,7 @@ static int file_lookup(struct ares_addr *addr, struct hostent **host)
             break;
         }
       ares_free_hostent(*host);
+#endif
     }
   fclose(fp);
   if (status == ARES_EOF)

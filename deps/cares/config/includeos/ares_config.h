@@ -138,7 +138,7 @@
 #define HAVE_INTTYPES_H 1
 
 /* Define to 1 if you have the ioctl function. */
-#define HAVE_IOCTL 1
+/* #define HAVE_IOCTL 1 */
 
 /* Define to 1 if you have the ioctlsocket function. */
 /* #undef HAVE_IOCTLSOCKET */
@@ -190,7 +190,7 @@
 #define HAVE_NETINET_TCP_H 1
 
 /* Define to 1 if you have the <net/if.h> header file. */
-#define HAVE_NET_IF_H 1
+/* #define HAVE_NET_IF_H 1 */
 
 /* Define to 1 if you have PF_INET6. */
 #define HAVE_PF_INET6 1
@@ -283,7 +283,7 @@
 #define HAVE_STRUCT_TIMEVAL 1
 
 /* Define to 1 if you have the <sys/ioctl.h> header file. */
-#define HAVE_SYS_IOCTL_H 1
+/*#define HAVE_SYS_IOCTL_H 1*/
 
 /* Define to 1 if you have the <sys/param.h> header file. */
 #define HAVE_SYS_PARAM_H 1
@@ -508,3 +508,20 @@
 /* #undef ssize_t */
 
 #define HAVE_GETENV 1
+
+#define IN_CLASSA(a)    ((((long int) (a)) & 0x80000000) == 0)
+#define IN_CLASSA_NET   0xff000000
+#define IN_CLASSA_NSHIFT  24
+#define IN_CLASSA_HOST    (0xffffffff & ~IN_CLASSA_NET)
+#define IN_CLASSA_MAX   128
+
+#define IN_CLASSB(a)    ((((long int) (a)) & 0xc0000000) == 0x80000000)
+#define IN_CLASSB_NET   0xffff0000
+#define IN_CLASSB_NSHIFT  16
+#define IN_CLASSB_HOST    (0xffffffff & ~IN_CLASSB_NET)
+#define IN_CLASSB_MAX   65536
+
+#define IN_CLASSC(a)    ((((long int) (a)) & 0xe0000000) == 0xc0000000)
+#define IN_CLASSC_NET   0xffffff00
+#define IN_CLASSC_NSHIFT  8
+#define IN_CLASSC_HOST    (0xffffffff & ~IN_CLASSC_NET)
