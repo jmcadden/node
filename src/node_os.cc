@@ -69,6 +69,7 @@ static void GetHostname(const FunctionCallbackInfo<Value>& args) {
   Environment* env = Environment::GetCurrent(args);
   char buf[MAXHOSTNAMELEN + 1];
 
+#ifndef __INCLUDEOS__
   if (gethostname(buf, sizeof(buf))) {
 #ifdef __POSIX__
     int errorno = errno;
@@ -78,6 +79,7 @@ static void GetHostname(const FunctionCallbackInfo<Value>& args) {
     return env->ThrowErrnoException(errorno, "gethostname");
   }
   buf[sizeof(buf) - 1] = '\0';
+#endif
 
   args.GetReturnValue().Set(OneByteString(env->isolate(), buf));
 }

@@ -290,8 +290,7 @@
         '-I/mnt/home/jmcadden/local/includeos/install_clang39/includeos/x86_64/include/newlib',
         '-Wno-unused-parameter', '-nostdlib', '-nostdlibinc', '-D_GNU_SOURCE',
         '-mno-red-zone', '-fstack-protector-strong', '-fno-omit-frame-pointer' ],
-        'cflags_cc': ['-std=c++14'],
-        #'-D_LIBCPP_HAS_NO_THREADS=1'
+        'cflags_cc': ['-std=c++14', '-D_LIBCPP_HAS_NO_THREADS=1'],
         'target_conditions': [
           ['_type=="static_library"', {
             'standalone_static_library': 1, 

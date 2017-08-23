@@ -43,6 +43,8 @@
     defined(_MSC_VER)
 
 # include <nameser.h>
+#elif defined(__INCLUDEOS__)
+# include <netdb.h>
 #else
 # include <arpa/nameser.h>
 #endif
