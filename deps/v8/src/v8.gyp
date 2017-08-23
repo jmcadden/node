@@ -383,13 +383,13 @@
         '<(DEPTH)',
         '<(SHARED_INTERMEDIATE_DIR)'
       ],
-      'actions':[{
-        'action_name': 'run mkpeephole',
-        'inputs': ['<(mkpeephole_exec)'],
-        'outputs': ['<(INTERMEDIATE_DIR)/bytecode-peephole-table.cc'],
-        'action': ['<(mkpeephole_exec)', '<(INTERMEDIATE_DIR)/bytecode-peephole-table.cc' ],
-        'process_outputs_as_sources': 1,
-      }],
+#      'actions':[{
+#        'action_name': 'run mkpeephole',
+#        'inputs': ['<(mkpeephole_exec)'],
+#        'outputs': ['<(INTERMEDIATE_DIR)/bytecode-peephole-table.cc'],
+#        'action': ['<(mkpeephole_exec)', '<(INTERMEDIATE_DIR)/bytecode-peephole-table.cc' ],
+#        'process_outputs_as_sources': 1,
+#      }],
       'sources': [  ### gcmole(all) ###
         '../include/v8-debug.h',
         '../include/v8-platform.h',
@@ -1351,11 +1351,11 @@
         }, {
           'toolsets': ['target'],
         }],
-        ['want_separate_host_toolset_mkpeephole==1', {
-          'dependencies': ['mkpeephole#host'],
-        }, {
-          'dependencies': ['mkpeephole'],
-        }],
+#        ['want_separate_host_toolset_mkpeephole==1', {
+#          'dependencies': ['mkpeephole#host'],
+#        }, {
+#          'dependencies': ['mkpeephole'],
+#        }],
         ['v8_target_arch=="arm"', {
           'sources': [  ### gcmole(arch:arm) ###
             'arm/assembler-arm-inl.h',
