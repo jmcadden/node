@@ -5,7 +5,7 @@
 #include "tracing/node_trace_writer.h"
 #include "libplatform/v8-tracing.h"
 
-#include <atomic>
+//#include <atomic>
 
 namespace node {
 namespace tracing {
@@ -76,7 +76,7 @@ class NodeTraceBuffer : public TraceBuffer {
   ConditionVariable exit_cond_;
   std::unique_ptr<NodeTraceWriter> trace_writer_;
   // TODO: Change std::atomic to something less contentious.
-  std::atomic<InternalTraceBuffer*> current_buf_;
+  InternalTraceBuffer* current_buf_;
   InternalTraceBuffer buffer1_;
   InternalTraceBuffer buffer2_;
 };

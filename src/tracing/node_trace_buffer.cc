@@ -91,7 +91,7 @@ NodeTraceBuffer::NodeTraceBuffer(size_t max_chunks,
     : tracing_loop_(tracing_loop), trace_writer_(trace_writer),
       buffer1_(max_chunks, 0, trace_writer),
       buffer2_(max_chunks, 1, trace_writer) {
-  current_buf_.store(&buffer1_);
+  current_buf_ = &buffer1_;
 
   flush_signal_.data = this;
   int err = uv_async_init(tracing_loop_, &flush_signal_, NonBlockingFlushSignalCb);
@@ -119,11 +119,11 @@ TraceObject* NodeTraceBuffer::AddTraceEvent(uint64_t* handle) {
     *handle = 0;
     return nullptr;
   }
-  return current_buf_.load()->AddTraceEvent(handle);
+  return current_buf_->AddTraceEvent(handle);
 }
 
 TraceObject* NodeTraceBuffer::GetEventByHandle(uint64_t handle) {
-  return current_buf_.load()->GetEventByHandle(handle);
+  return current_buf_->GetEventByHandle(handle);
 }
 
 bool NodeTraceBuffer::Flush() {
@@ -136,13 +136,13 @@ bool NodeTraceBuffer::Flush() {
 // can write at least one trace event. If both buffers are unavailable this
 // method returns false; otherwise it returns true.
 bool NodeTraceBuffer::TryLoadAvailableBuffer() {
-  InternalTraceBuffer* prev_buf = current_buf_.load();
+  InternalTraceBuffer* prev_buf = current_buf_;
   if (prev_buf->IsFull()) {
     uv_async_send(&flush_signal_); // trigger flush on a separate thread
     InternalTraceBuffer* other_buf = prev_buf == &buffer1_ ?
       &buffer2_ : &buffer1_;
     if (!other_buf->IsFull()) {
-      current_buf_.store(other_buf);
+      current_buf_ = other_buf;
     } else {
       return false;
     }
