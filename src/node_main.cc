@@ -50,6 +50,9 @@ int wmain(int argc, wchar_t *wargv[]) {
 #else
 // UNIX
 int main(int argc, char *argv[]) {
+	if( getenv("NODE_EXIT_MAIN") != nullptr){
+ 	 exit(1);
+	}
   // Disable stdio buffering, it interacts poorly with printf()
   // calls elsewhere in the program (e.g., any logging from V8.)
   setvbuf(stdout, nullptr, _IONBF, 0);

@@ -4593,6 +4593,9 @@ static void StartNodeInstance(void* arg) {
 #endif
   Isolate* isolate = Isolate::New(params);
 
+	if( getenv("NODE_EXIT_V8ISOLATE") != nullptr){
+ 	 exit(1);
+	}
   {
     Mutex::ScopedLock scoped_lock(node_isolate_mutex);
     if (instance_data->is_main()) {
@@ -4610,6 +4613,10 @@ static void StartNodeInstance(void* arg) {
     Isolate::Scope isolate_scope(isolate);
     HandleScope handle_scope(isolate);
     Local<Context> context = Context::New(isolate);
+
+	if( getenv("NODE_EXIT_V8CONTEXT") != nullptr){
+ 	 exit(1);
+	}
     Environment* env = CreateEnvironment(isolate, context, instance_data);
     array_buffer_allocator->set_env(env);
     Context::Scope context_scope(context);
@@ -4691,6 +4698,9 @@ static void StartNodeInstance(void* arg) {
 int Start(int argc, char** argv) {
   PlatformInit();
 
+	if( getenv("NODE_EXIT_PLATFORMINIT") != nullptr){
+ 	 exit(1);
+	}
   CHECK_GT(argc, 0);
 
   // Hack around with the argv pointer. Used for process.title = "blah".
@@ -4702,6 +4712,9 @@ int Start(int argc, char** argv) {
   const char** exec_argv;
   Init(&argc, const_cast<const char**>(argv), &exec_argc, &exec_argv);
 
+	if( getenv("NODE_EXIT_INIT") != nullptr){
+ 	 exit(1);
+	}
 #if HAVE_OPENSSL
   if (const char* extra = secure_getenv("NODE_EXTRA_CA_CERTS"))
     crypto::UseExtraCaCerts(extra);
@@ -4718,6 +4731,9 @@ int Start(int argc, char** argv) {
   v8_platform.Initialize(v8_thread_pool_size);
   V8::Initialize();
 
+	if( getenv("NODE_EXIT_V8INIT") != nullptr){
+ 	 exit(1);
+	}
   int exit_code = 1;
   {
     NodeInstanceData instance_data(NodeInstanceType::MAIN,
